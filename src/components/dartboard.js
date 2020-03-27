@@ -1,6 +1,9 @@
 import React from 'react'
+import Section from './section'
+import angleCoord from '../util/trigonometry'
 
 const createOnMouseOverBull = (onMouseOverBull, ring) => () => onMouseOverBull({ ring })
+const createOnMouseOverSection = (onMouseOverSection, ring, index) => () => onMouseOverSection({ ring, index })
 
 const Dartboard = (props) => {
   const {
@@ -19,12 +22,66 @@ const Dartboard = (props) => {
     onMouseOut
   } = props
 
+  const drawSectionValue = (center, radius, angle, index, value) => {
+    const coord = angleCoord(center, radius, angle * index)
+
+    return (<text
+      x={coord.x}
+      y={coord.y}
+    >
+      {value}
+    </text>)
+  }
+
   const center = totalRadius
   const width = totalRadius * 2
   const height = width
+  const sectionsCount = sections && sections.length
+  const sectionAngle = (sectionsCount && sectionsCount !== 0) ? 360 / sectionsCount : null
 
   return (
     <svg onMouseOut={onMouseOut} style={{ width, height }}>
+      {sections.map((item, index) => (
+        <g>
+          {drawSectionValue(center, valuesRadius, sectionAngle, index, item.value)}
+          <Section
+            key={`doubleOuter_${index}`}
+            center={center}
+            index={index}
+            sectionsCount={sectionsCount}
+            radius={doubleRingOuterRadius}
+            color={item.color.double}
+            onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'double', index)}
+          />
+          <Section
+            key={`doubleInner_${index}`}
+            center={center}
+            index={index}
+            sectionsCount={sectionsCount}
+            radius={doubleRingInnerRadius}
+            color={item.color.outerSingle}
+            onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'outerSingle', index)}
+          />
+          <Section
+            key={`tripleOuter_${index}`}
+            center={center}
+            index={index}
+            sectionsCount={sectionsCount}
+            radius={tripleRingOuterRadius}
+            color={item.color.triple}
+            onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'triple', index)}
+          />
+          <Section
+            key={`tripleInner_${index}`}
+            center={center}
+            index={index}
+            sectionsCount={sectionsCount}
+            radius={tripleRingInnerRadius}
+            color={item.color.innerSingle}
+            onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'innerSingle', index)}
+          />
+        </g>
+      ))}
       <circle
         cx={center}
         cy={center}

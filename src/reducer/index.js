@@ -32,6 +32,26 @@ export default (state = initialState, action) => {
           }
         }
       })
+    case HIGHLIGHT_SECTION:
+      return merge(state, {
+        dartboard: {
+          highlight: {
+            type: 'section',
+            ring: action.ring,
+            index: action.index
+          }
+        }
+      })
+    case HIGHLIGHT_NONE:
+      return merge(state, {
+        dartboard: {
+          highlight: {
+            type: 'none',
+            ring: null,
+            index: null
+          }
+        }
+      })
     default:
       return state
   }

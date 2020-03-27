@@ -1,8 +1,8 @@
 import Dartboard from './dartboard'
 import { connect } from 'react-redux'
-import { HIGHLIGHT_BULL } from '../action-types'
+import { HIGHLIGHT_BULL, HIGHLIGHT_SECTION, HIGHLIGHT_NONE } from '../action-types'
 import pick from 'lodash/fp/pick'
-import { getBull } from '../selectors'
+import { getBull, getSections } from '../selectors'
 
 const mapStateToProps = (state) => ({
   ...pick([
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
     'valuesRadius',
     'totalRadius'
   ], state.dartboard),
-  sections: [], // TODO fetch from redux state
+  sections: getSections(state),
   bull: getBull(state)
 })
 
@@ -23,6 +23,14 @@ const mapDispatchToProps = (dispatch) => ({
   onMouseOverBull: ({ ring }) => dispatch({
     type: HIGHLIGHT_BULL,
     ring
+  }),
+  onMouseOverSection: ({ ring, index }) => dispatch({
+    type: HIGHLIGHT_SECTION,
+    ring,
+    index
+  }),
+  onMouseOut: () => dispatch({
+    type: HIGHLIGHT_NONE
   })
 })
 
