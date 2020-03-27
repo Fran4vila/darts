@@ -42,7 +42,9 @@ const Dartboard = (props) => {
   return (
     <svg onMouseOut={onMouseOut} style={{ width, height }}>
       {sections.map((item, index) => (
-        <g>
+        <g
+          key={index}
+        >
           {drawSectionValue(center, valuesRadius, sectionAngle, index, item.value)}
           <Section
             key={`doubleOuter_${index}`}
