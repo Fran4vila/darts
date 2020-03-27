@@ -37,15 +37,15 @@ const Section = (props) => {
   const {
     center,
     index,
-    sectionsCount,
+    initialAngle,
+    sectionAngle,
     radius,
     color,
     onMouseOverSection
   } = props
 
-  const angle = 360 / sectionsCount
-  const angleStart = index * angle
-  const angleEnd = (index + 1) * angle
+  const angleStart = index * sectionAngle - initialAngle
+  const angleEnd = (index + 1) * sectionAngle - initialAngle
 
   return (
     <path
@@ -60,7 +60,8 @@ const Section = (props) => {
 Section.propTypes = {
   center: React.PropTypes.number,
   index: React.PropTypes.number,
-  sectionsCount: React.PropTypes.number,
+  initialAngle: React.PropTypes.number,
+  sectionAngle: React.PropTypes.number,
   radius: React.PropTypes.number,
   color: React.PropTypes.string,
   onMouseOverSection: React.PropTypes.func

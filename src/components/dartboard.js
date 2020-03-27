@@ -22,8 +22,8 @@ const Dartboard = (props) => {
     onMouseOut
   } = props
 
-  const drawSectionValue = (center, radius, angle, index, value) => {
-    const coord = angleCoord(center, radius, angle * index)
+  const drawSectionValue = (center, radius, initialAngle, sectionAngle, index, value) => {
+    const coord = angleCoord(center, radius, sectionAngle * index - initialAngle)
 
     return (<text
       x={coord.x}
@@ -36,6 +36,7 @@ const Dartboard = (props) => {
   const center = totalRadius
   const width = totalRadius * 2
   const height = width
+  const initialAngle = 90
   const sectionsCount = sections && sections.length
   const sectionAngle = (sectionsCount && sectionsCount !== 0) ? 360 / sectionsCount : null
 
@@ -45,12 +46,13 @@ const Dartboard = (props) => {
         <g
           key={index}
         >
-          {drawSectionValue(center, valuesRadius, sectionAngle, index, item.value)}
+          {drawSectionValue(center, valuesRadius, initialAngle, sectionAngle, index, item.value)}
           <Section
             key={`doubleOuter_${index}`}
             center={center}
             index={index}
-            sectionsCount={sectionsCount}
+            initialAngle={initialAngle}
+            sectionAngle={sectionAngle}
             radius={doubleRingOuterRadius}
             color={item.color.double}
             onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'double', index)}
@@ -59,7 +61,8 @@ const Dartboard = (props) => {
             key={`doubleInner_${index}`}
             center={center}
             index={index}
-            sectionsCount={sectionsCount}
+            initialAngle={initialAngle}
+            sectionAngle={sectionAngle}
             radius={doubleRingInnerRadius}
             color={item.color.outerSingle}
             onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'outerSingle', index)}
@@ -68,7 +71,8 @@ const Dartboard = (props) => {
             key={`tripleOuter_${index}`}
             center={center}
             index={index}
-            sectionsCount={sectionsCount}
+            initialAngle={initialAngle}
+            sectionAngle={sectionAngle}
             radius={tripleRingOuterRadius}
             color={item.color.triple}
             onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'triple', index)}
@@ -77,7 +81,8 @@ const Dartboard = (props) => {
             key={`tripleInner_${index}`}
             center={center}
             index={index}
-            sectionsCount={sectionsCount}
+            initialAngle={initialAngle}
+            sectionAngle={sectionAngle}
             radius={tripleRingInnerRadius}
             color={item.color.innerSingle}
             onMouseOverSection={createOnMouseOverSection(onMouseOverSection, 'innerSingle', index)}
