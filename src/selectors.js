@@ -17,7 +17,7 @@ const getBull = state => {
   }
 }
 
-const getDoubleAndTripleColor = index => index % 2 === 0 ? 'green' : 'red'
+const getDoubleAndTripleColor = index => index % 2 === 0 ? 'red' : 'green'
 
 const getSingleColor = index => index % 2 === 0 ? 'black' : 'white'
 

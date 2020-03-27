@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
           highlight: {
             type: 'section',
             ring: action.ring,
-            index: action.index
+            index: action.value
           }
         }
       })

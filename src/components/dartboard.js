@@ -1,6 +1,5 @@
 import React from 'react'
 import Section from './section'
-import angleCoord from '../util/trigonometry'
 
 const createOnMouseOverBull = (onMouseOverBull, ring) => () => onMouseOverBull({ ring })
 const createOnMouseOverSection = (onMouseOverSection, ring, index) => () => onMouseOverSection({ ring, index })
@@ -22,17 +21,6 @@ const Dartboard = (props) => {
     onMouseOut
   } = props
 
-  const drawSectionValue = (center, radius, initialAngle, sectionAngle, index, value) => {
-    const coord = angleCoord(center, radius, sectionAngle * index - initialAngle)
-
-    return (<text
-      x={coord.x}
-      y={coord.y}
-    >
-      {value}
-    </text>)
-  }
-
   const center = totalRadius
   const width = totalRadius * 2
   const height = width
@@ -46,7 +34,15 @@ const Dartboard = (props) => {
         <g
           key={index}
         >
-          {drawSectionValue(center, valuesRadius, initialAngle, sectionAngle, index, item.value)}
+          <Section
+            key={`value_${index}`}
+            center={center}
+            index={index}
+            initialAngle={initialAngle}
+            sectionAngle={sectionAngle}
+            radius={valuesRadius}
+            value={item.value}
+          />
           <Section
             key={`doubleOuter_${index}`}
             center={center}
