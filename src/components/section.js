@@ -1,12 +1,15 @@
 import React from 'react'
 import angleCoord from '../util/trigonometry'
 
-const getPath = (center, angleStart, angleEnd, radius) => {
-  const XangleStart = center + radius * Math.cos((Math.PI / 180) * angleStart)
-  const YangleStart = center + radius * Math.sin((Math.PI / 180) * angleStart)
+const getX = (center, radius, angle) => center + radius * Math.cos((Math.PI / 180) * angle)
+const getY = (center, radius, angle) => center + radius * Math.sin((Math.PI / 180) * angle)
 
-  const XangleEnd = center + radius * Math.cos((Math.PI / 180) * angleEnd)
-  const YangleEnd = center + radius * Math.sin((Math.PI / 180) * angleEnd)
+const getPath = (center, angleStart, angleEnd, radius) => {
+  const XangleStart = getX(center, radius, angleStart)
+  const YangleStart = getY(center, radius, angleStart)
+
+  const XangleEnd = getX(center, radius, angleEnd)
+  const YangleEnd = getY(center, radius, angleEnd)
 
   const paramD =
   'M ' + center + ', ' + center +
