@@ -37,7 +37,7 @@ const Section = (props) => {
     return (<text
       x={coord.x}
       y={coord.y}
-      style={{textAnchor: 'middle', alignmentBaseline: 'central', fontFamily: 'Arial'}}
+      style={{textAnchor: 'middle', alignmentBaseline: 'central', fontFamily: 'Arial', cursor: 'pointer', fill: 'white'}}
     >
       {value}
     </text>)

@@ -30,6 +30,7 @@ const Dartboard = (props) => {
 
   return (
     <svg onMouseOut={onMouseOut} style={{ width, height }}>
+      <circle cx={center} cy={center} r={totalRadius} fill="black" cursor="pointer" />
       {sections.map((item, index) => (
         <g
           key={index}
